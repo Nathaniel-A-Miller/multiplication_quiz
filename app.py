@@ -51,6 +51,8 @@ elif not st.session_state.finished:
         for _ in range(num_1):
             hamster_grid += "🐹 " * num_2 + "\n"
         
+        st.text(hamster_grid)
+        
         st.markdown(f"```\n{hamster_grid}\n```")
 
         # Move to next question
