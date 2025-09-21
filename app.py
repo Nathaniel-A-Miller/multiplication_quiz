@@ -2,12 +2,26 @@ import streamlit as st
 import random
 import time
 
-st.set_page_config(page_title="Guinea Pig Multiplication", page_icon="🐹")
-st.title("🐹 Multiplication Practice")
+st.set_page_config(page_title="Pet Multiplication", page_icon="🐾")
+st.title("🐾 Pet Multiplication Practice")
+
+# Available pets
+PET_OPTIONS = {
+    "Hamster": "🐹",
+    "Cat": "🐱",
+    "Dog": "🐶",
+    "Rabbit": "🐰",
+    "Mouse": "🐭",
+    "Frog": "🐸",
+    "Panda": "🐼",
+    "Fox": "🦊",
+}
 
 # Initialize session state
 if "initialized" not in st.session_state:
     st.session_state.update({
+        "pet_name": None,
+        "pet_emoji": None,
         "num_1": None,
         "numbers": [],
         "current_index": 0,
@@ -23,14 +37,18 @@ if "initialized" not in st.session_state:
     })
     st.session_state.initialized = True
 
-# Step 1: Choose number
-if st.session_state.num_1 is None:
-    num = st.number_input(
+# Step 1: Choose pet and number
+if st.session_state.pet_name is None:
+    st.subheader("Choose your pet and multiplication number")
+    pet_choice = st.selectbox("Select your pet:", list(PET_OPTIONS.keys()))
+    num_choice = st.number_input(
         "Choose a number between 1 and 12 to practice:", 
         min_value=1, max_value=12, step=1, value=6
     )
     if st.button("Start Practice"):
-        st.session_state.num_1 = int(num)
+        st.session_state.pet_name = pet_choice
+        st.session_state.pet_emoji = PET_OPTIONS[pet_choice]
+        st.session_state.num_1 = int(num_choice)
         st.session_state.numbers = list(range(1, 13))
         random.shuffle(st.session_state.numbers)
         st.session_state.current_index = 0
@@ -42,6 +60,8 @@ if st.session_state.num_1 is None:
 
 # Step 2: Quiz
 elif not st.session_state.finished:
+    pet_name = st.session_state.pet_name
+    pet_emoji = st.session_state.pet_emoji
     num_1 = st.session_state.num_1
     idx = st.session_state.current_index
     total_questions = len(st.session_state.numbers)
@@ -50,7 +70,7 @@ elif not st.session_state.finished:
     st.subheader(f"Question {idx + 1} of {total_questions}")
     st.write(f"What is {num_2} × {num_1}?")
 
-    # Show form for answer submission
+    # Form for answer submission
     if not st.session_state.show_feedback:
         with st.form(key=f"form_{idx}"):
             ans = st.number_input("Your answer", min_value=0, step=1, key=f"ans_{idx}")
@@ -59,17 +79,17 @@ elif not st.session_state.finished:
                 correct_ans = num_1 * num_2
                 if ans == correct_ans:
                     st.session_state.correct += 1
-                    st.session_state.last_feedback = ("correct", "✅ Correct!")
+                    st.session_state.last_feedback = ("correct", f"✅ Correct! Your {pet_name} is happy!")
                 else:
                     st.session_state.last_feedback = ("wrong", f"❌ Wrong — the answer was {correct_ans}.")
 
-                # Create hamster grid
-                grid = [" ".join(["🐹"] * num_2) for _ in range(num_1)]
+                # Create pet grid
+                grid = [" ".join([pet_emoji] * num_2) for _ in range(num_1)]
                 st.session_state.last_grid_lines = grid
                 st.session_state.show_feedback = True
                 st.rerun()
 
-    # After submission: show feedback + hamster grid + Next button
+    # After submission: show feedback + pet grid + Next button
     else:
         kind, message = st.session_state.last_feedback
         if kind == "correct":
@@ -77,7 +97,7 @@ elif not st.session_state.finished:
         else:
             st.error(message)
 
-        st.markdown("**Guinea pig grid:**")
+        st.markdown(f"**{pet_name} grid:**")
         for line in st.session_state.last_grid_lines:
             st.write(line)
 
@@ -86,33 +106,32 @@ elif not st.session_state.finished:
             st.session_state.current_index += 1
             if st.session_state.current_index >= total_questions:
                 st.session_state.finished = True
-                # Save final results
+                # Save final results (raw seconds)
                 st.session_state.final_total = total_questions
                 st.session_state.final_correct = st.session_state.correct
-                st.session_state.final_elapsed = round(time.time() - st.session_state.start_time, 2)
+                st.session_state.final_elapsed = time.time() - st.session_state.start_time
             st.rerun()
 
 # Step 3: Results
 else:
     total = st.session_state.final_total
     correct = st.session_state.final_correct
-    elapsed_seconds = st.session_state.final_elapsed  # raw seconds as float
+    elapsed_seconds = st.session_state.final_elapsed
     percent = round(correct / total * 100)
 
     minutes = int(elapsed_seconds // 60)
-    seconds = int(round(elapsed_seconds % 60))
+    seconds = int(elapsed_seconds % 60)
 
     st.subheader("🎉 Results 🎉")
     st.write(f"You got **{correct}/{total}** correct ({percent}%).")
     st.write(f"⏱️ Time taken: **{minutes} min {seconds} sec**.")
 
     if percent >= 80:
-        st.success("🎉 Great job!")
+        st.success(f"🎉 Great job! Your {pet_name} is proud of you!")
     else:
-        st.warning("💪 You are doing great, but keep practicing!")
+        st.warning(f"💪 You are doing great, but keep practicing! Your {pet_name} is cheering for you!")
 
     if st.button("Restart"):
         for k in list(st.session_state.keys()):
             del st.session_state[k]
         st.rerun()
-
