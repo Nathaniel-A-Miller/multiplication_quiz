@@ -47,13 +47,9 @@ elif not st.session_state.finished:
         else:
             st.error(f"❌ Wrong! The answer was {num_1 * num_2}.")
 
-        hamster_grid = ""
-        for _ in range(num_1):
-            hamster_grid += "🐹 " * num_2 + "\n"
-        
-        st.text(hamster_grid)
-        
-        st.markdown(f"```\n{hamster_grid}\n```")
+        # Build hamster grid (use markdown with <br> so emojis render properly)
+        hamster_grid = "<br>".join(["🐹 " * num_2 for _ in range(num_1)])
+        st.markdown(hamster_grid, unsafe_allow_html=True)
 
         # Move to next question
         st.session_state.current_index += 1
