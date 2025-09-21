@@ -97,7 +97,7 @@ elif not st.session_state.finished:
         else:
             st.error(message)
 
-        st.markdown(f"**{pet_name} grid:**")
+        st.markdown(f"**{pet_name} array:**")
         for line in st.session_state.last_grid_lines:
             st.write(line)
 
