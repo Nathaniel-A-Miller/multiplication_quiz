@@ -96,12 +96,16 @@ elif not st.session_state.finished:
 else:
     total = st.session_state.final_total
     correct = st.session_state.final_correct
-    elapsed = st.session_state.final_elapsed
+    elapsed_seconds = st.session_state.final_elapsed
     percent = round(correct / total * 100)
+
+    # Convert to minutes and seconds
+    minutes = int(elapsed_seconds // 60)
+    seconds = int(elapsed_seconds % 60)
 
     st.subheader("🎉 Results 🎉")
     st.write(f"You got **{correct}/{total}** correct ({percent}%).")
-    st.write(f"⏱️ Time taken: **{elapsed} seconds**.")
+    st.write(f"⏱️ Time taken: **{minutes} min {seconds} sec**.")
 
     if percent >= 80:
         st.success("🎉 Great job!")
