@@ -37,7 +37,7 @@ if st.session_state.num_1 is None:
         st.session_state.start_time = time.time()
         st.session_state.finished = False
         st.session_state.show_feedback = False
-        st.experimental_rerun()
+        st.rerun()
 
 # Quiz screen
 elif not st.session_state.finished:
@@ -77,7 +77,7 @@ elif not st.session_state.finished:
                 st.session_state.last_grid_lines = rows
 
                 st.session_state.show_feedback = True
-                st.experimental_rerun()
+                st.rerun()
 
     # After submission: show preserved feedback + hamster grid and a Next button
     else:
@@ -97,7 +97,7 @@ elif not st.session_state.finished:
             st.session_state.current_index += 1
             if st.session_state.current_index >= len(st.session_state.numbers):
                 st.session_state.finished = True
-            st.experimental_rerun()
+            st.rerun()
 
 # Results screen
 else:
@@ -118,4 +118,4 @@ else:
     if st.button("Restart"):
         for k in list(st.session_state.keys()):
             del st.session_state[k]
-        st.experimental_rerun()
+        st.rerun()
