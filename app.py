@@ -8,6 +8,7 @@ st.title("🐾 Pet Multiplication Practice")
 # Available pets
 PET_OPTIONS = {
     "Hamster": "🐹",
+    "Guinea Pig": "🐹",
     "Cat": "🐱",
     "Dog": "🐶",
     "Rabbit": "🐰",
