@@ -2,7 +2,7 @@ import streamlit as st
 import random
 import time
 
-st.set_page_config(page_title="Hamster Multiplication", page_icon="🐹")
+st.set_page_config(page_title="Guinea Pig Multiplication", page_icon="🐹")
 st.title("🐹 Multiplication Practice")
 
 # Initialize session state
@@ -77,7 +77,7 @@ elif not st.session_state.finished:
         else:
             st.error(message)
 
-        st.markdown("**Hamster grid:**")
+        st.markdown("**Guinea pig grid:**")
         for line in st.session_state.last_grid_lines:
             st.write(line)
 
