@@ -96,12 +96,11 @@ elif not st.session_state.finished:
 else:
     total = st.session_state.final_total
     correct = st.session_state.final_correct
-    elapsed_seconds = st.session_state.final_elapsed
+    elapsed_seconds = st.session_state.final_elapsed  # raw seconds as float
     percent = round(correct / total * 100)
 
-    # Convert to minutes and seconds
     minutes = int(elapsed_seconds // 60)
-    seconds = int(elapsed_seconds % 60)
+    seconds = int(round(elapsed_seconds % 60))
 
     st.subheader("🎉 Results 🎉")
     st.write(f"You got **{correct}/{total}** correct ({percent}%).")
@@ -116,3 +115,4 @@ else:
         for k in list(st.session_state.keys()):
             del st.session_state[k]
         st.rerun()
+
