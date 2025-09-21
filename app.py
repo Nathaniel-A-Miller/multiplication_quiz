@@ -2,7 +2,7 @@ import streamlit as st
 import random
 import time
 
-st.set_page_config(page_title="Hamster Multiplication", page_icon="🐹")
+st.set_page_config(page_title="Guinea Pig Multiplication", page_icon="🐹")
 st.title("🐹 Multiplication Practice")
 
 # Initialize session state
@@ -63,13 +63,13 @@ elif not st.session_state.finished:
                 else:
                     st.session_state.last_feedback = ("wrong", f"❌ Wrong — the answer was {correct_ans}.")
 
-                # Create hamster grid
+                # Create guinea pig grid
                 grid = [" ".join(["🐹"] * num_2) for _ in range(num_1)]
                 st.session_state.last_grid_lines = grid
                 st.session_state.show_feedback = True
                 st.rerun()
 
-    # After submission: show feedback + hamster grid + Next button
+    # After submission: show feedback + guinea pig grid + Next button
     else:
         kind, message = st.session_state.last_feedback
         if kind == "correct":
@@ -77,7 +77,7 @@ elif not st.session_state.finished:
         else:
             st.error(message)
 
-        st.markdown("**Hamster grid:**")
+        st.markdown("**guinea pig grid:**")
         for line in st.session_state.last_grid_lines:
             st.write(line)
 
