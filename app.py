@@ -106,7 +106,7 @@ elif not st.session_state.finished:
             st.session_state.current_index += 1
             if st.session_state.current_index >= total_questions:
                 st.session_state.finished = True
-                # Save final results (raw seconds)
+                # Save final results (store raw seconds)
                 st.session_state.final_total = total_questions
                 st.session_state.final_correct = st.session_state.correct
                 st.session_state.final_elapsed = time.time() - st.session_state.start_time
@@ -114,6 +114,7 @@ elif not st.session_state.finished:
 
 # Step 3: Results
 else:
+    pet_name = st.session_state.pet_name  # Fetch from session_state
     total = st.session_state.final_total
     correct = st.session_state.final_correct
     elapsed_seconds = st.session_state.final_elapsed
