@@ -77,7 +77,7 @@ elif not st.session_state.finished:
         else:
             st.error(message)
 
-        st.markdown("**guinea pig grid:**")
+        st.markdown("**Guinea pig array:**")
         for line in st.session_state.last_grid_lines:
             st.write(line)
 
