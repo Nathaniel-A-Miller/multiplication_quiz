@@ -16,6 +16,8 @@ PET_OPTIONS = {
     "Frog": "🐸",
     "Panda": "🐼",
     "Fox": "🦊",
+    "Rose": "🌹",
+    "Rock": "🪨"
 }
 
 # Initialize session state
