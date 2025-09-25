@@ -76,7 +76,30 @@ elif not st.session_state.finished:
     # Form for answer submission
     if not st.session_state.show_feedback:
         with st.form(key=f"form_{idx}"):
-            ans = st.number_input("Your answer", min_value=0, step=1, key=f"ans_{idx}")
+            # Replace this:
+# ans = st.number_input("Your answer", min_value=0, step=1, key=f"ans_{idx}")
+
+# With this:
+ans_str = st.text_input("Your answer", value="", key=f"ans_{idx}")
+submitted = st.form_submit_button("Submit")
+
+if submitted:
+    if ans_str.strip().isdigit():  # only if the user typed a number
+        ans = int(ans_str)
+        correct_ans = num_1 * num_2
+        if ans == correct_ans:
+            st.session_state.correct += 1
+            st.session_state.last_feedback = ("correct", f"✅ Correct! Your {pet_name} is happy!")
+        else:
+            st.session_state.last_feedback = ("wrong", f"❌ Wrong — the answer was {correct_ans}.")
+    else:
+        st.session_state.last_feedback = ("wrong", "⚠️ Please enter a number.")
+    
+    # Create pet grid
+    grid = [" ".join([pet_emoji] * num_2) for _ in range(num_1)]
+    st.session_state.last_grid_lines = grid
+    st.session_state.show_feedback = True
+    st.rerun()
             submitted = st.form_submit_button("Submit")
             if submitted:
                 correct_ans = num_1 * num_2
