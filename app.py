@@ -143,6 +143,7 @@ else:
 
     if percent >= 80:
         st.success(f"🎉 Great job! Your {pet_name} is proud of you!")
+        st.balloons()
     else:
         st.warning(f"💪 You are doing great, but keep practicing! Your {pet_name} is cheering for you!")
 
