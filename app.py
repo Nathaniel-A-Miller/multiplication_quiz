@@ -91,7 +91,7 @@ elif not st.session_state.finished:
                     correct_ans = num_1 * num_2
                     if ans == correct_ans:
                         st.session_state.correct += 1
-                        st.session_state.last_feedback = ("correct", f"✅ Correct! Your {pet_name} is happy!")
+                        st.session_state.last_feedback = ("correct", f"✅ Correct! Your {pet_name.lower()} is happy!")
                     else:
                         st.session_state.last_feedback = ("wrong", f"❌ Wrong — the answer was {correct_ans}.")
                 else:
@@ -142,7 +142,7 @@ else:
     st.write(f"⏱️ Time taken: **{minutes} min {seconds} sec**.")
 
     if percent >= 80:
-        st.success(f"🎉 Great job! Your {pet_name} is proud of you!")
+        st.success(f"🎉 Great job! Your {pet_name.lower()} is proud of you!")
         st.balloons()
     else:
         st.warning(f"💪 You are doing great, but keep practicing! Your {pet_name} is cheering for you!")
