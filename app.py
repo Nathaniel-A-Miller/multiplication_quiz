@@ -76,7 +76,7 @@ elif not st.session_state.finished:
     # Form for answer submission
     if not st.session_state.show_feedback:
         with st.form(key=f"form_{idx}"):
-            ans_str = st.text_input("Your answer", value="", key=f"ans_{idx}")
+            ans_str = st.text_input("Your answer", value="", key=f"ans_{idx}", type="number")
             submitted = st.form_submit_button("Submit")
 
             if submitted:
