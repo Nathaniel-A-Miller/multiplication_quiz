@@ -76,17 +76,26 @@ elif not st.session_state.finished:
     # Form for answer submission
     if not st.session_state.show_feedback:
         with st.form(key=f"form_{idx}"):
-            # Use number_input to bring up numeric keypad on mobile
-            ans = st.number_input("Your answer", min_value=0, step=1, key=f"ans_{idx}")
+            # Numeric input with empty initial state
+            ans = st.number_input(
+                "Your answer",
+                min_value=0,
+                step=1,
+                value=None,  # <-- empty initially
+                key=f"ans_{idx}"
+            )
             submitted = st.form_submit_button("Submit")
 
             if submitted:
-                correct_ans = num_1 * num_2
-                if ans == correct_ans:
-                    st.session_state.correct += 1
-                    st.session_state.last_feedback = ("correct", f"✅ Correct! Your {pet_name} is happy!")
+                if ans is not None:
+                    correct_ans = num_1 * num_2
+                    if ans == correct_ans:
+                        st.session_state.correct += 1
+                        st.session_state.last_feedback = ("correct", f"✅ Correct! Your {pet_name} is happy!")
+                    else:
+                        st.session_state.last_feedback = ("wrong", f"❌ Wrong — the answer was {correct_ans}.")
                 else:
-                    st.session_state.last_feedback = ("wrong", f"❌ Wrong — the answer was {correct_ans}.")
+                    st.session_state.last_feedback = ("wrong", "⚠️ Please enter a number.")
 
                 # Create pet grid
                 grid = [" ".join([pet_emoji] * num_2) for _ in range(num_1)]
