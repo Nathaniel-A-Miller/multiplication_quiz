@@ -9,7 +9,7 @@ st.title("🐾 Pet Multiplication Practice")
 PET_OPTIONS = {
     "Cat": "🐱",
     "Dog": "🐶",
-    "Guinea Pig": "🐹",
+    "Guinea Pig": '<img src="guinea_pig.png" width="28"/>',
     "Hamster": "🐹",
     "Rabbit": "🐰",
     "Mouse": "🐭",
@@ -113,7 +113,7 @@ elif not st.session_state.finished:
 
         st.markdown(f"**{pet_name} array:**")
         for line in st.session_state.last_grid_lines:
-            st.write(line)
+            st.markdown(line, unsafe_allow_html=True)
 
         if st.button("Next"):
             st.session_state.show_feedback = False
