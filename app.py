@@ -12,7 +12,7 @@ def get_base64_image(path):
     return f"data:image/png;base64,{base64.b64encode(data).decode()}"
 
 # Available pets
-guinea_pig_img = get_base64_image("guinea_pig.png")
+guinea_pig_img = get_base64_image("guinea-pig.png")
 
 PET_OPTIONS = {
     "Cat": "🐱",
