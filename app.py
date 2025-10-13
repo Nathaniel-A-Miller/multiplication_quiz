@@ -1,15 +1,23 @@
 import streamlit as st
 import random
 import time
+import base64
 
 st.set_page_config(page_title="Pet Multiplication", page_icon="🐾")
 st.title("🐾 Pet Multiplication Practice")
 
+def get_base64_image(path):
+    with open(path, "rb") as f:
+        data = f.read()
+    return f"data:image/png;base64,{base64.b64encode(data).decode()}"
+
 # Available pets
+guinea_pig_img = get_base64_image("guinea_pig.png")
+
 PET_OPTIONS = {
     "Cat": "🐱",
     "Dog": "🐶",
-    "Guinea Pig": '<img src="guinea_pig.png" width="28"/>',
+    "Guinea Pig": f'<img src="{guinea_pig_img}" width="28"/>',
     "Hamster": "🐹",
     "Rabbit": "🐰",
     "Mouse": "🐭",
