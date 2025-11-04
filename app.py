@@ -15,9 +15,9 @@ def get_base64_image(path):
 guinea_pig_img = get_base64_image("guinea-pig.png")
 
 PET_OPTIONS = {
+    "Guinea Pig": f'<img src="{guinea_pig_img}" width="28"/>',
     "Cat": "🐱",
     "Dog": "🐶",
-    "Guinea Pig": f'<img src="{guinea_pig_img}" width="28"/>',
     "Hamster": "🐹",
     "Rabbit": "🐰",
     "Mouse": "🐭",
